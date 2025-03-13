@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Checkout</title>
+
+    <!-- This code is needed for responsive design to work.
+      (Responsive design = make the website look good on
+      smaller screen sizes like a phone or a tablet). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Load a font called Roboto from Google Fonts. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Here are the CSS files for this page. -->
+    <link rel="stylesheet" href="styles/shared/general.css">
+    <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
+    <link rel="stylesheet" href="styles/pages/checkout/checkout.css">
+  </head>
+  <body>
+    <div class="checkout-header js-checkout-header">
+      
+    </div>
+
+    <div class="main">
+      <div class="page-title">Review your order</div>
+
+      <div class="checkout-grid">
+        <div class="order-summary js-cart-item-container">
+          
+        </div>
+
+        <div class="payment-summary js-payment-summary">
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- <script src="https://unpkg.com/dayjs@1.11.10/dayjs.min.js"></script> -->
+    <script type="module" src="./scripts/checkout.js"></script>
+    
+    <!-- <script>
+      
+      function handleEnterKey(event, productId) {
+        console.log(productId);
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevent the default action of the 'Enter' key
+          let container = document.querySelector(`.js-cart-item-container-${productId}`);
+          container.classList.remove('is-editing-quantity');
+          container.classList.remove('js-quantity-label');
+          let quantity = Number(document.querySelector(`.js-quantity-input-${productId}`).value);
+          if(quantity>=0 && quantity<1000){
+            document.querySelector(`.js-updated-quantity-label-${productId}`).textContent= quantity;
+            updateQuantity(productId,quantity);
+            updateCartQuantity();
+          }
+          else{
+            alert("Please input a valid quantity: it can between 0-1000");
+          } // Call the saveLinkUpdate function
+        }
+      }
+    </script> -->
+  </body>
+</html>
