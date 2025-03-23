@@ -6,6 +6,25 @@ import { deliveryOptions ,getDeliveryOption , calculateDeliveryDate } from "../.
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
 
+// Handle pressing Enter key in quantity input fields
+function handleEnterKey(event, productId) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    let container = document.querySelector(`.js-cart-item-container-${productId}`);
+    container.classList.remove('is-editing-quantity');
+    container.classList.remove('js-quantity-label');
+    let quantity = Number(document.querySelector(`.js-quantity-input-${productId}`).value);
+    if(quantity >= 0 && quantity < 1000) {
+      document.querySelector(`.js-updated-quantity-label-${productId}`).textContent = quantity;
+      updateQuantity(productId, quantity);
+      updateCartQuantity();
+      renderPaymentSummary();
+    } else {
+      alert("Please input a valid quantity: it can be between 0-1000");
+    }
+  }
+}
+
 export function renderOrderSummary(){
 
     let checkoutHTML = '';
@@ -45,7 +64,7 @@ export function renderOrderSummary(){
                   <span class="update-quantity-link link-primary js-update-quantity-link" data-product-id="${matchingproduct.id}">
                     Update
                   </span>
-                  <input class="quantity-input js-quantity-input-${matchingproduct.id}" onkeydown="handleEnterKey(event, '${matchingproduct.id}')">
+                  <input class="quantity-input js-quantity-input-${matchingproduct.id}">
                   <span class="save-quantity-link link-primary js-save-quantity-link" data-product-id="${matchingproduct.id}">Save</span>
                   <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingproduct.id}">
                     Delete
@@ -160,7 +179,11 @@ export function renderOrderSummary(){
       })
     })
 
-    
+    // Add key event listeners to all quantity inputs
+    document.querySelectorAll('.quantity-input').forEach((input) => {
+      const productId = input.className.split('js-quantity-input-')[1];
+      input.addEventListener('keydown', (event) => handleEnterKey(event, productId));
+    });
 
   }
 
